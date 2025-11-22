@@ -16,7 +16,7 @@ Welcome to this project combining Java web app development and AWS CI/CD tools!
 ## Introduction
 This project is used for an introduction to creating and deploying a Java-based web app using AWS, especially their CI/CD tools.
 
-The deployment pipeline I'm building around the Java web app in this repository is invisible to the end-user, but makes a big impact by automating the software release processes.
+The deployment pipeline I'm building around the Java web app in this repository is invisible to the end-user, but makes a big impact by automating the software release processes. Am doing this project to learn how CI/CD pipelines can automate and speed up the software development life-cycle, and eventually, how AI can play a part in this process.
 
 <br>
 
@@ -49,6 +49,7 @@ To get this project up and running on your local machine, follow these steps:
     ```bash
     mvn install
     ```
+For any merge issues between the local repo and github repo, simply initiate the git process and try the force push command `git push -u origin main --force`    
 
 <br>
 

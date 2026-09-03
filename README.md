@@ -53,6 +53,44 @@ For any merge issues between the local repo and github repo, simply initiate the
 
 <br>
 
+<br>
+
+## Infrastructure as Code
+
+The whole pipeline — CodeArtifact, CodeBuild, CodeDeploy, CodePipeline, the S3 artifact
+bucket, and every IAM role they need — is captured in `cloudformation/`, so the stack can
+be recreated from the templates rather than reassembled by hand. See
+[`cloudformation/README.md`](cloudformation/README.md) for parameters and the one manual
+step CloudFormation cannot do for you.
+
+`scripts/stop_server.alternative.sh` is a more defensive variant of the CodeDeploy
+`ApplicationStop` hook, kept because a stop script that fails is one of the more annoying
+ways to wedge a deployment.
+
+<br>
+
+## Recreating the local environment
+
+Java and Maven are all that is needed; `target/` is generated and not committed.
+
+```bash
+mvn clean install     # build
+./run-tests.sh        # tests
+```
+
+Builds pull dependencies from CodeArtifact using `settings.xml`, which reads a token from
+the `CODEARTIFACT_AUTH_TOKEN` environment variable. `buildspec.yml` fetches that token at
+build time via `aws codeartifact get-authorization-token` — the token is short-lived and
+is never stored in this repository.
+
+<br>
+
+## Write-up
+
+The full write-up — architecture diagram, day-by-day build, and results — lives in my
+portfolio repo:
+**[Projects / ci-cd / aws-devops-cicd-challenge](https://github.com/kingswanzy2020/Projects/tree/main/ci-cd/aws-devops-cicd-challenge)**.
+
 ## Contact
 If you have any questions or comments about the NextWork Web Project, please contact:
 Ahmed Tetteh (mailto:kingsleyswanzy@gmail.com)
